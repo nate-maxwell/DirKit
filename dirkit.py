@@ -201,7 +201,7 @@ def export_data_to_json(path: Path, data: dict, overwrite: bool = False) -> None
     Args:
         path (Path): the file path to place the .json file.
 
-        data (dict|list): the data to export into the .json file.
+        data (dict): the data to export into the .json file.
 
         overwrite(bool): to overwrite json file if it already exists in path.
             Defaults to False.
