@@ -128,38 +128,19 @@ def delete_safe_files_in_directory(directory_path: Path) -> None:
         print("Error occurred while deleting files.")
 
 
-def copy_file(source: Path, destination: Path, new_name: Optional[str] = '') -> None:
+def copy_file(source: Path, destination: Path) -> None:
     """
-    Copy file into a separate destination folder.
+    Copy file to a separate destination.
+
+    Mainly a wrapper for shutil.copy but in this single namespace.
 
     Args:
         source (Path): file path of the file to copy.
-
         destination (Path): folder path of where to copy the file to.
-
-        new_name (Optional[str]): an optional argument to rename the file.
     """
-    if source.parent == destination:
-        if source.is_dir():
-            return
-        else:
-            if '.' in new_name and not new_name.split('.')[-1].isnumeric():
-                new_base_name = os.path.splitext(new_name)[0]
-            else:
-                new_base_name = new_name
-
-            ext = source.name.split('.')[-1]
-            replace_name = f'{new_base_name}.{ext}'
-            shutil.copy(source, Path(source.parent, replace_name))
-    else:
-        create_directory(destination)
-
-        if new_name:
-            target = Path(destination, new_name)
-        else:
-            target = destination
-
-        shutil.copy(source, target)
+    if not source.exists():
+        return
+    shutil.copy(source, destination)
 
 
 def copy_folder_contents(source: Path, destination: Path) -> None:
